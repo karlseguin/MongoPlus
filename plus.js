@@ -1,6 +1,9 @@
 print('* MongoPlus is active (https://github.com/karlseguin/mongoplus)');
 
 $ = function(str) {
+  if (!ObjectId.isValid(str)) {
+    throw('"' + str + '" is not a valid ObjectId');
+  }
   return ObjectId(str);
 }
 $.originals = {
