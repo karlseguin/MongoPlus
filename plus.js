@@ -1,3 +1,4 @@
+__plusPretty = false;
 print('* MongoPlus is active (https://github.com/karlseguin/mongoplus)');
 
 $ = function(str) {
@@ -75,13 +76,13 @@ $.implicitObjectIdTransform = function(q) {
   return q;
 }
 
-
+function pretty(b) { __plusPretty = b; }
 /* Find Output */
 DBQuery.prototype.shellPrint = function() {
   var n = 0;
   try {
     while (this.hasNext() && n < (this._limit || DBQuery.shellBatchSize)) {
-      print(this._prettyShell ? tojson( this.next() ) : tojson( this.next() , "" , true ));
+      print(__plusPretty || this._prettyShell ? tojson( this.next() ) : tojson( this.next() , "" , true ));
       n++;
     }
     var explain = this.explain()
